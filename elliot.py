@@ -3,7 +3,7 @@ import pandas as pd
 from pandas import DataFrame
 from utils_helper import *
 
-def find_prime_implicants(fileName: str) -> dict:
+def addImplicant(fileName: str) -> dict:
     '''
     Input: name of file we can read the theory from
     Output: the primeDict with the minterm expressions and boolean representations
@@ -114,23 +114,25 @@ def find_conflicts(newEquation, fileName):
 
     print(matchedDict)
 
-def get_next_candidate(var_set: dict) -> tuple():  
+def get_next_candidate(v_s: list[dict[str, dict[str, str]]]) -> tuple:  
 
     '''
-    Input: a set of search variables
+    Input: all variable candidates
     Output: potential candidates of minimal conflicts to be accepted or rejected by the candidate testor
     '''
     
     #working candidate, initially set to {}
-    a_c = set()
+    a_c = {}
 
     #curent iterative deepening depth, initially set to 1
     d_current = 1
 
-    if d_current <= len(var_set):
+    if d_current <= len(v_s):
 
         if len(a_c) > 0:
 
             c_p = a_c
+
+            c_p_prime = c_p
 
     return 
