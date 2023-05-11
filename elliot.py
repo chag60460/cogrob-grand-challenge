@@ -1,7 +1,7 @@
 # import modules
 import pandas as pd
 from pandas import DataFrame
-from utils import *
+from utils_helper import *
 
 def find_prime_implicants(fileName: str) -> dict:
     '''
