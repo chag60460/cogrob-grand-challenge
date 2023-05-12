@@ -371,7 +371,7 @@ class Problem():
                     raise Exception("You shouldn't assign decision variables like {} in your constraints!".format(exp.var.name))
 
     def get_variable(self, name):
-        return self.name_to_var(name)
+        return self.name_to_var[name]
 
     def get_decision_variables(self):
         return frozenset([var for var in self.variables if var.decision_variable])
