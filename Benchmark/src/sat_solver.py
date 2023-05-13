@@ -3,9 +3,10 @@
 """
 SAT Solver implementation, using DPLL with unit propagation.
 """
-
-from src.propositional_state_logic import *
-from src.clauses import *
+import sys
+sys.path.append('/Users/gracechang/Desktop/cogrob-grand-challenge/src')
+from .propositional_state_logic import *
+from .clauses import *
 
 class SATSolver():
     def __init__(self, prob):

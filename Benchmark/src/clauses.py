@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import itertools
-from src.propositional_state_logic import *
+from .propositional_state_logic import *
 
 class Literal():
     def __init__(self, atom, positive):

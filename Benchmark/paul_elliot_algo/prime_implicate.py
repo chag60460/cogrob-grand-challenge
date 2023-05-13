@@ -1,4 +1,4 @@
-from paul_elliot_algo.test_validity import *
+from .test_validity import *
 
 def prime_implicate_finder(sat, candidateList):
     ## sat represents the theory behind the represented model
@@ -24,3 +24,5 @@ def prime_implicate_finder(sat, candidateList):
             solutions.append(candidate)
         else: #candidate is satisfiable
             convertToImplicate.append(candidate)
+    
+    return (generatorAdditions, convertToImplicate, solutions)

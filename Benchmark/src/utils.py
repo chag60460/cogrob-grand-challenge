@@ -1,7 +1,7 @@
 import IPython
 from nose.tools import assert_equal, ok_
-from src.propositional_state_logic import *
-from src.sat_solver import *
+from .propositional_state_logic import *
+from .sat_solver import *
 
 def test_ok():
     """ If execution gets to this point, print out a happy message """

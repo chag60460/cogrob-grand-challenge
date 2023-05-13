@@ -1,0 +1,6 @@
+{
+  "python.analysis.extraPaths": [
+    "./paul_elliot_algo",
+    "./quine_mccluskey_algo"
+  ]
+}

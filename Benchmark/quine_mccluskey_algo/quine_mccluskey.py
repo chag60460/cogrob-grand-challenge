@@ -1,6 +1,6 @@
 # import statements
 import pandas as pd
-from quine_mccluskey_algo.utils import *
+from .utils import *
 
 ############################################# End of Helper Functions #############################################
 
