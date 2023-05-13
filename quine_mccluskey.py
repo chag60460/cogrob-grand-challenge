@@ -179,4 +179,3 @@ def find_conflicts(newEquation, fileName):
 
     print(matchedDict)
 
-    
