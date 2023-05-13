@@ -4,8 +4,8 @@
 SAT Solver implementation, using DPLL with unit propagation.
 """
 
-from propositional_state_logic import *
-from clauses import *
+from src.propositional_state_logic import *
+from src.clauses import *
 
 class SATSolver():
     def __init__(self, prob):

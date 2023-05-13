@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import itertools
-from propositional_state_logic import *
+from src.propositional_state_logic import *
 
 class Literal():
     def __init__(self, atom, positive):
