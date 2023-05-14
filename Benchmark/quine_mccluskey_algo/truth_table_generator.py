@@ -18,6 +18,8 @@ thruster_a.add_constraint('~F1 => ~P1')
 table_a = ttg.Truths(thruster_a.get_variables(), thruster_a.get_output())
 
 tableDF_a = table_a.as_pandas()
+tableDF_a = tableDF_a.rename(mapper={thruster_a.get_output()[0]: 'output'}, axis='columns')
+tableDF_a.index.name='Term'
 tableDF_a.to_excel("Thruster_Truth_Table_a.xlsx")
 
 
@@ -58,6 +60,8 @@ thruster_b.add_constraint('PV3 => P3')
 table_b = ttg.Truths(thruster_b.get_variables(), thruster_b.get_output())
 
 tableDF_b = table_b.as_pandas()
+tableDF_b = tableDF_b.rename(mapper={thruster_b.get_output()[0]: 'output'}, axis='columns')
+tableDF_b.index.name='Term'
 tableDF_b.to_excel("Thruster_Truth_Table_b.xlsx")
 
 
@@ -83,4 +87,6 @@ thruster_c.add_constraint('~R1 => ~T1')
 table_c = ttg.Truths(thruster_c.get_variables(), thruster_c.get_output())
 
 tableDF_c = table_c.as_pandas()
+tableDF_c = tableDF_c.rename(mapper={thruster_c.get_output()[0]: 'output'}, axis='columns')
+tableDF_c.index.name='Term'
 tableDF_c.to_excel("Thruster_Truth_Table_c.xlsx")
