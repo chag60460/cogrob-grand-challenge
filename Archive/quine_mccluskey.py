@@ -130,5 +130,52 @@ def find_min_expression(fileName):
 
     return(originalEquation, newEquation)
 
+### find likely conflict candidates using current variable expressions and the theory
+def find_conflicts(newEquation, fileName):
 
+    # Read in the values theoretically assigned to each variable
+    actualValsDF = pd.read_excel(fileName)
+
+    # Make a list with the values the variable names
+    columnNames = list(actualValsDF.columns)
+    columnNames.pop(0)
+    columnNames.pop()
+
+    # Make a list with the assigned binary values of the variables
+    varAssignments = actualValsDF.values.tolist()[0]
+    varAssignments.pop(0)
+    varAssignments.pop()
+
+    print(varAssignments)
+
+    # # Dictionary has variables as keys and binary assignments as values
+    # assignmentsDict = {}
+    # for variable in columnNames:
+    #     assignmentsDict[variable] = actualValsDF.iloc[0][variable]
+
+    # Make a dictionary with keys that are the term name and values are the binary representations of the theory
+    equationDict = {}
+    equationTerms = list(newEquation.split(" + "))
+    for termName in equationTerms:
+        binaryString = convert_term_to_string(termName, columnNames)
+        equationDict[termName] = binaryString
+
+    #Dictionary that shows which terms match the variable assignments
+    matchedDict = {}
+    for term in equationDict:
+        termVals = equationDict[term]
+        countMatches = 0
+        for i in range(len(termVals)):
+            if termVals[i] != varAssignments[i]:
+                if termVals[i] == "-":
+                    countMatches += 1
+            else:
+                countMatches += 1
+        # if all of the assignments match the equation's term
+        if countMatches == len(termVals):
+            matchedDict[term] = 1
+        else:
+            matchedDict[term] = 0
+
+    print(matchedDict)
 
