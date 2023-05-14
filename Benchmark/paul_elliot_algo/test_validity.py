@@ -12,16 +12,10 @@ def get_all_children(d: dict):
             yield from get_all_children(value)
 
 def is_valid(candidate: frozenset[Variable], sat: SATSolver, model_children: dict):
-    validCandidateList = []
-    
-    for variable in candidate:
-        if len(variable.get_assignment()) == 1:
-            validCandidateList.append(variable)
-    
-    for child in list(frozenset(validCandidateList)):
+    childCandidateList = list(get_all_children(model_children))
+    for child in childCandidateList:
         if is_conflict(sat, child):
             return False
-    
     return True
 
 def is_unsatisfiable(candidate, sat, thruster_model_children):

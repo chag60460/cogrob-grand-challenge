@@ -1,3 +1,4 @@
+import time
 from paul_elliot_algo.prime_implicate import *
 from quine_mccluskey_algo.quine_mccluskey import *
 from src.propositional_state_logic import *
@@ -47,13 +48,100 @@ p.add_constraint('~R1 => ~T1')
 sat = SATSolver(p)
 
 ############################### Variable Setup ##############################################
-variable_list = p.get_decision_variables()
+variable_list = p.variables
 
+############################## Thruster Example - Placeholder ################################
+thruster = Problem()
+
+# Define the variables for the mini thruster problem with variables: T1, R1, and P3. Returns a Variable object.
+# Thrust: T1
+T1 = thruster.add_variable('thruster', type='finite_domain', domain=['thrust', 'nothrust'])
+# Thruster: R1
+R1 = thruster.add_variable('runthruster', type='finite_domain', domain=['on', 'off'])
+# Pressure before the thruster: P3
+P3 = thruster.add_variable('pressure', type='finite_domain', domain=['high', 'low'])
+
+# Add the theory / problem constraints.
+# The thruster only outputs thrust when it is on and when the input from P3 is high
+thruster.add_constraint('runthruster=on & pressure=high => thruster=thrust')
+thruster.add_constraint('runthruster=on & pressure=low => thruster=nothrust')
+thruster.add_constraint('runthruster=off => thruster=nothrust')
+
+# Prints out constraints nicely in LaTeX, so you can check them.
+display_constraints(thruster)
+
+# Define SAT for future use
+sat = SATSolver(thruster)
+
+thruster_model = {
+    frozenset([T1.get_assignment('thrust')]) : {
+        frozenset([T1.get_assignment('thrust'), R1.get_assignment('on')]) : {
+            frozenset([T1.get_assignment('thrust'), R1.get_assignment('on'), P3.get_assignment('high')]) : {},
+            frozenset([T1.get_assignment('thrust'), R1.get_assignment('on'), P3.get_assignment('low')]) : {},
+            },
+        frozenset([T1.get_assignment('thrust'), R1.get_assignment('off')]) : {
+            frozenset([T1.get_assignment('thrust'), R1.get_assignment('off'), P3.get_assignment('high')]) : {},
+            frozenset([T1.get_assignment('thrust'), R1.get_assignment('off'), P3.get_assignment('low')]) : {},
+            },
+        frozenset([T1.get_assignment('thrust'), P3.get_assignment('high')]) : {},
+        frozenset([T1.get_assignment('thrust'), P3.get_assignment('low')]) : {},
+        },
+    
+    frozenset([T1.get_assignment('nothrust')]) : {
+        frozenset([T1.get_assignment('nothrust'), R1.get_assignment('on')]) : {
+            frozenset([T1.get_assignment('nothrust'), R1.get_assignment('on'), P3.get_assignment('high')]) : {},
+            frozenset([T1.get_assignment('nothrust'), R1.get_assignment('on'), P3.get_assignment('low')]) : {},
+            },
+        frozenset([T1.get_assignment('nothrust'), R1.get_assignment('off')]) : {
+            frozenset([T1.get_assignment('nothrust'), R1.get_assignment('off'), P3.get_assignment('high')]) : {},
+            frozenset([T1.get_assignment('nothrust'), R1.get_assignment('off'), P3.get_assignment('low')]) : {},
+            },
+        frozenset([T1.get_assignment('nothrust'), P3.get_assignment('high')]) : {},
+        frozenset([T1.get_assignment('nothrust'), P3.get_assignment('low')]) : {},
+        },
+    
+    frozenset([R1.get_assignment('on')]) : {
+            frozenset([R1.get_assignment('on'), P3.get_assignment('high')]) : {},
+            frozenset([R1.get_assignment('on'), P3.get_assignment('low')]) : {},
+            },
+        frozenset([R1.get_assignment('off')]) : {
+            frozenset([R1.get_assignment('off'), P3.get_assignment('high')]) : {},
+            frozenset([R1.get_assignment('off'), P3.get_assignment('low')]) : {},
+            },
+    
+    frozenset([P3.get_assignment('high')]) : {},
+    
+    frozenset([P3.get_assignment('low')]) : {},
+}
+
+candidate1 = frozenset([T1.get_assignment('thrust')])
+candidate2 = frozenset([T1.get_assignment('nothrust')])
+candidate4 = frozenset([R1.get_assignment('off')])
+candidate1A = frozenset([T1.get_assignment('thrust'), R1.get_assignment('on')])
+candidate1B = frozenset([T1.get_assignment('thrust'), R1.get_assignment('off')])
+candidate2A = frozenset([T1.get_assignment('nothrust'), R1.get_assignment('on')])
+candidate2B = frozenset([T1.get_assignment('nothrust'), R1.get_assignment('off')])
+
+candidateList = [
+    (candidate1, thruster_model[candidate1]),
+    (candidate2, thruster_model[candidate2]),
+    (candidate4, thruster_model[candidate4]),
+    (candidate1A,thruster_model[candidate1][candidate1A]),
+    (candidate1B,thruster_model[candidate1][candidate1B]),
+    (candidate2A,thruster_model[candidate2][candidate2A]),
+    (candidate2B,thruster_model[candidate2][candidate2B]),
+]
+
+############################## Benchmark Algorithms #########################################
 def quine_mccluskey(fileName: str) -> tuple:
+    start_time = time.time()
     find_prime_implicants(fileName)
+    print(f"quine_mccluskey {time.time() - start_time}, to run")
 
-def paul_elliot(sat: SATSolver, variable_list: list):
-    print(prime_implicate_finder(sat, variable_list))
+def paul_elliot(sat: SATSolver, candidateList: list):
+    start_time = time.time()
+    prime_implicate_finder(sat, candidateList)
+    print(f"paul_elliot {time.time() - start_time}, to run")
 
 quine_mccluskey('Problem_Theory_v1.xlsx')
-paul_elliot(sat, variable_list)
+paul_elliot(sat, candidateList)

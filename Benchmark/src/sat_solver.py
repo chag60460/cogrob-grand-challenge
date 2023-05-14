@@ -3,8 +3,6 @@
 """
 SAT Solver implementation, using DPLL with unit propagation.
 """
-import sys
-sys.path.append('/Users/gracechang/Desktop/cogrob-grand-challenge/src')
 from .propositional_state_logic import *
 from .clauses import *
 
