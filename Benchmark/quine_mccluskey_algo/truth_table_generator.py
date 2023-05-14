@@ -1,5 +1,5 @@
 import ttg
-from utils import *
+from .utils import *
         
 ###################################
 # Define part A of thruster problem
@@ -20,7 +20,8 @@ table_a = ttg.Truths(thruster_a.get_variables(), thruster_a.get_output())
 tableDF_a = table_a.as_pandas()
 tableDF_a = tableDF_a.rename(mapper={thruster_a.get_output()[0]: 'output'}, axis='columns')
 tableDF_a.index.name='Term'
-tableDF_a.to_excel("Thruster_Truth_Table_a.xlsx")
+tableDF_a = tableDF_a.reset_index()
+#tableDF_a.to_excel("Thruster_Truth_Table_a.xlsx", index=False)
 
 
 
@@ -62,7 +63,8 @@ table_b = ttg.Truths(thruster_b.get_variables(), thruster_b.get_output())
 tableDF_b = table_b.as_pandas()
 tableDF_b = tableDF_b.rename(mapper={thruster_b.get_output()[0]: 'output'}, axis='columns')
 tableDF_b.index.name='Term'
-tableDF_b.to_excel("Thruster_Truth_Table_b.xlsx")
+tableDF_b = tableDF_b.reset_index()
+#tableDF_b.to_excel("Thruster_Truth_Table_b.xlsx", index=False)
 
 
 
@@ -89,4 +91,5 @@ table_c = ttg.Truths(thruster_c.get_variables(), thruster_c.get_output())
 tableDF_c = table_c.as_pandas()
 tableDF_c = tableDF_c.rename(mapper={thruster_c.get_output()[0]: 'output'}, axis='columns')
 tableDF_c.index.name='Term'
-tableDF_c.to_excel("Thruster_Truth_Table_c.xlsx")
+tableDF_c = tableDF_c.reset_index()
+#tableDF_c.to_excel("Thruster_Truth_Table_c.xlsx", index=False)

@@ -8,10 +8,10 @@ from .utils import *
 ## Input: name of file we can read the theory from
 ## Output: tuple of (originalEquation, mintermsValOne, primeDict)
 ## Where originalEquation is the original theory expression, mintermsValOne are all the minterms that have an output of one and the primeDict has the minterm expressions and bollean representations
-def find_prime_implicants(fileName):
+def find_prime_implicants(truthTable):
     ## Initial Data Processing
     # read by in the truth table/model for the system:
-    truthTable = pd.read_excel(fileName)
+    #truthTable = pd.read_excel(fileName)
     truthTable['Term'] = truthTable['Term'].astype(str)
     # number of variables is number of columns - 2 (to remove the "terms" column and "f" column)
     numberofVariables = len(truthTable.columns) - 2
