@@ -45,4 +45,4 @@ def find_prime_implicants_elliot(p: Problem, Vs: list):
         elif sat.check_consistency(candidate)[0]:
             satisfiable.append(candidate)
 
-    return prime_implicants
+    return prime_implicants, minimal_conflicts
