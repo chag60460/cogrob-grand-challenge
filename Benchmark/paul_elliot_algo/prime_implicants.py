@@ -24,7 +24,7 @@ def find_prime_implicants_elliot(p: Problem, Vs: list):
     for assignment in reduced_set:
         candidate = frozenset([p.get_variable(a.var.__str__()).get_assignment(a.val) for a in assignment])
         
-        if candidate in children and is_valid_benchmark(p, candidate, sat, children) and not any(S.issubset(candidate) for S in prime_implicants):
+        if candidate in children and is_valid_benchmark(p, candidate, sat, children, reduced_set) and not any(S.issubset(candidate) for S in prime_implicants):
             prime_implicants.append(candidate)
 
         elif len(candidate) == len(Vs) and \

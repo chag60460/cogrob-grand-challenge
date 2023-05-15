@@ -108,8 +108,11 @@ def is_conflict(p: Problem, sat: SATSolver, tree: list):
     return conflicts
 
 ###################################### Check Validity ################################################
-def is_valid_benchmark(p, candidate, sat, children):
+def is_valid_benchmark(p, candidate, sat, children, reduced_set):
     childCandidateList = children[(candidate)]
+    ## Uncomment to prune, takes a long time
+    # if is_satisfiable(p, sat, list_tree(reduced_set, [])):
+    #     return True           
     for child in childCandidateList:
         if is_conflict(p, sat, child):
             return False
