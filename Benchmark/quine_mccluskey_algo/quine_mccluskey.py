@@ -70,10 +70,10 @@ def find_prime_implicants(truthTable):
 ####### Use Prime Implicant Chart to Make Shortened Equation ########
 ## Input: File name that has the theory
 ## Output: (Original theory expression, new theory expression)
-def find_min_expression(fileName):
+def find_min_expression(truthTable):
 
     ## Get information from prime implicant chart
-    (originalEquation, mintermsValOne, primeDict) = find_prime_implicants(fileName)
+    (originalEquation, mintermsValOne, primeDict) = find_prime_implicants(truthTable)
     numberofVariables = len(mintermsValOne.columns) - 2
     # make a dictionary to store the final implicants that will be used to represent the theory
     # keys: combinations of minterms, e.g. "m1,m2,m3,m4"
